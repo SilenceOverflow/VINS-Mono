@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(vins_estimator)
 
 set(CMAKE_BUILD_TYPE "Release")
-set(CMAKE_CXX_FLAGS "-std=c++11")
+set(CMAKE_CXX_FLAGS "-std=c++14")
 #-DEIGEN_USE_MKL_ALL")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Wall -g")
 
@@ -19,7 +19,18 @@ find_package(OpenCV REQUIRED)
 
 # message(WARNING "OpenCV_VERSION: ${OpenCV_VERSION}")
 
-find_package(Ceres REQUIRED)
+set(Eigen3_DIR "~/Desktop/thirdparties/eigen-3.4.0/share/eigen3/cmake")
+find_package(Eigen3 REQUIRED PATHS ${Eigen3_DIR})
+message(STATUS "Building ${PROJECT_NAME}: Eigen Version - ${EIGEN3_VERSION_STRING} ...")
+set(EIGEN_INCLUDE_DIRS "~/Desktop/thirdparties/eigen-3.4.0/include/eigen3")
+include_directories(${EIGEN_INCLUDE_DIRS})
+
+# find_package(Ceres REQUIRED)
+set(Ceres_DIR "~/Desktop/thirdparties/ceres-2.1.0/lib/cmake/Ceres")
+find_package(Ceres REQUIRED PATHS ${Ceres_DIR})
+message(STATUS "Building ${PROJECT_NAME}: Ceres Version - ${CERES_VERSION} ...")
+set(CERES_INCLUDE_DIRS "~/Desktop/thirdparties/ceres-2.1.0/include")
+include_directories(${CERES_INCLUDE_DIRS})
 
 include_directories(${catkin_INCLUDE_DIRS} ${CERES_INCLUDE_DIRS})
 
